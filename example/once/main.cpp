@@ -11,13 +11,30 @@ void hello()
     std::cout << "hello once after" << std::endl;
 }
 
-void world()
+class C
 {
-    std::cout << "world once before" << std::endl;
-	ONCE(
-		std::cout << "world" << std::endl;
-	);
-    std::cout << "world once before" << std::endl;
+public:
+    void hello()
+    {
+        std::cout << "C.hello once before" << std::endl;
+	    ONCE(
+		    std::cout << "C.hello" << std::endl;
+	    );
+        std::cout << "C.hello once after" << std::endl;
+    }
+};
+
+namespace tmp
+{
+    void hello()
+    {
+        std::cout << "tmp.hello once before" << std::endl;
+	    ONCE(
+		    std::cout << "tmp.hello" << std::endl;
+	    );
+        std::cout << "tmp.hello once after" << std::endl;
+    }
+
 }
 
 /*
@@ -28,12 +45,19 @@ hello once after
 hello once before
 hello once after
 
-world once before
-world
-world once before
+C.hello once before
+C.hello
+C.hello once after
 
-world once before
-world once before
+C.hello once before
+C.hello once after
+
+tmp.hello once before
+tmp.hello
+tmp.hello once after
+
+tmp.hello once before
+tmp.hello once after
 */
 int main(int argc, char* argv[])
 {
@@ -43,11 +67,27 @@ int main(int argc, char* argv[])
 	hello();
     std::cout << std::endl;
 
-    world();
+    C c;
+    c.hello();
     std::cout << std::endl;
 
-    world();
+    c.hello();
     std::cout << std::endl;
+
+    tmp::hello();
+    std::cout << std::endl;
+
+    tmp::hello();
+    std::cout << std::endl;
+
+	auto fn = []() {
+		ONCE(
+			std::cout << "main.hello" << std::endl;
+		)
+	};
+
+    fn();
+    fn();
 
     std::cin.get();
     return 0;

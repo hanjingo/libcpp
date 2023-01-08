@@ -2,7 +2,7 @@
 #include <chrono>
 #include <thread>
 
-#include <libcpp/math/matrix2.hpp>
+#include <libcpp/math/matrix.hpp>
 
 int main(int argc, char* argv[])
 {
@@ -61,7 +61,7 @@ int main(int argc, char* argv[])
     auto mat3 = mat2;
     std::cout << "get mat3[1][1]=" << mat1[1][1] << std::endl;
 
-	std::this_thread::sleep_for(std::chrono::seconds(100));
+    std::this_thread::sleep_for(std::chrono::seconds(100));
 
     return 0;
 }

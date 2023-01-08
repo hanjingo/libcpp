@@ -11,7 +11,7 @@ void doDefer()
     DEFER(
         std::cout << "step2. do defer2" << std::endl;
     );
-    std::cout << "after before" << std::endl;
+    std::cout << "defer after" << std::endl;
 }
 
 int main(int argc, char* argv[])
