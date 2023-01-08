@@ -10,4 +10,4 @@ add_subdirectory(defer)
 
 add_subdirectory(once)
 
-# add_subdirectory(matrix)
+add_subdirectory(matrix)
