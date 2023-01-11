@@ -9,4 +9,5 @@
 #include <libcpp/types/int128.hpp>
 #include <libcpp/types/null.hpp>
 #include <libcpp/types/optional.hpp>
+#include <libcpp/types/size.hpp>
 #include <libcpp/types/variant.hpp>

@@ -181,11 +181,97 @@ FetchContent_Declare(
     SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/concurrentqueue
 )
 
+# mosquitto
+FetchContent_Declare(
+    mosquitto_https
+    URL https://github.com/eclipse/mosquitto/archive/refs/tags/v2.0.15.zip
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/mosquitto
+)
+FetchContent_Declare(
+    mosquitto_git
+    GIT_REPOSITORY https://github.com/eclipse/mosquitto.git
+    GIT_TAG v2.0.15
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/mosquitto
+)
+
+# zlib
+FetchContent_Declare(
+    zlib_https
+    URL https://github.com/madler/zlib/archive/refs/tags/v1.2.13.zip
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/zlib
+)
+FetchContent_Declare(
+    zlib_git
+    GIT_REPOSITORY https://github.com/madler/zlib.git
+    GIT_TAG v1.2.13
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/zlib
+)
+
+# unreal
+FetchContent_Declare(
+    unreal_https
+    URL https://github.com/EpicGames/UnrealEngine/archive/refs/tags/5.1.0-release.zip
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/unreal
+)
+FetchContent_Declare(
+    unreal_git
+    GIT_REPOSITORY https://github.com/EpicGames/UnrealEngine.git
+    GIT_TAG 5.1.0-release
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/unreal
+)
+
+# eigen
+FetchContent_Declare(
+    eigen_https
+    URL https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.zip
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/eigen
+)
+
+# spdlog
+FetchContent_Declare(
+    spdlog_https
+    URL https://github.com/gabime/spdlog/archive/refs/tags/v1.11.0.zip
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/spdlog
+)
+FetchContent_Declare(
+    spdlog_git
+    GIT_REPOSITORY https://github.com/gabime/spdlog.git
+    GIT_TAG v1.11.0
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/spdlog
+)
+
+
 
 ################################################################################
 
+if (USE_BOOSTLOG)
+    set(FETCH_BOOST "ON" CACHE STRING INTERNAL FORCE)
+elseif (USE_BOOST_TYPES)
+    set(FETCH_BOOST "ON" CACHE STRING INTERNAL FORCE)
+elseif (USE_BOOST_IO)
+    set(FETCH_BOOST "ON" CACHE STRING INTERNAL FORCE)
+endif()
 if(FETCH_BOOST)
 	FetchContent_MakeAvailable(boost_https)
+
+    if (UNIX)
+        execute_process(COMMAND ./bootstrap.sh 
+                        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/boost)
+        execute_process(COMMAND ./b2
+                        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/boost)
+    endif()
+    if (WIN32)
+        execute_process(COMMAND bootstrap.bat 
+                        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/boost)
+        execute_process(COMMAND b2.exe 
+                        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/boost)
+    endif()
+    if (APPLE)
+
+    endif()
+    if (MINGW)
+
+    endif()
 endif()
 
 if(FETCH_TENSORFLOW)
@@ -233,9 +319,34 @@ if(FETCH_ZMQPP)
 endif()
 
 if(FETCH_LOG4CPLUS)
-	FetchContent_MakeAvailable(log4cplus_git)
+	FetchContent_MakeAvailable(log4cplus_https)
+
+    # if (WIN32)
+    #     execute_process(COMMAND devenv.exe ./msvc14/log4cplus.sln /build "Release" /Project "log4cplus" /ProjectConfig "Release|x64" 
+    #                     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/log4cplus)
+    # endif()
 endif()
 
 if(FETCH_LIBHARU)
 	FetchContent_MakeAvailable(libharu_https)
+endif()
+
+if(FETCH_MOSQUITTO)
+	FetchContent_MakeAvailable(mosquitto_https)
+endif()
+
+if(FETCH_ZLIB)
+	FetchContent_MakeAvailable(zlib_https)
+endif()
+
+if(FETCH_UNREAL)
+	FetchContent_MakeAvailable(unreal_https)
+endif()
+
+if(FETCH_EIGEN)
+	FetchContent_MakeAvailable(eigen_https)
+endif()
+
+if(FETCH_SPDLOG)
+	FetchContent_MakeAvailable(spdlog_https)
 endif()

@@ -1,4 +1,5 @@
 # libcpp
+
 cpp library framework implementationed by c++11.
 
 ---
@@ -42,19 +43,55 @@ cpp library framework implementationed by c++11.
 - Clang
 - MSVC
 
-### Run tests
+build all with cmake cmd:
 
 ```sh
-cmake -DTEST=ON .. 
-
-make 
-
-make test
+cmake .. -DLOG=ON -DUSE_LOG4CPLUS=ON -DUSE_BOOSTLOG=ON -DUSE_SPDLOG=ON -DMATH=ON -DUSE_OPENCV_MAT=ON
 ```
+
+| option           | default | description |
+| ---------------- | ------- | ----------- |
+| -DALGORITHM      | ON      |             |
+| -DBINDING        | ON      |             |
+| -DCONTAINER      | ON      |             |
+| -DCRYPTO         | ON      |             |
+| -DDB             | ON      |             |
+| -DENCODING       | ON      |             |
+| -DENV            | ON      |             |
+| -DFILE           | ON      |             |
+| -DGRAPHICAL      | ON      |             |
+| -DIO             | ON      |             |
+| -DUSE_BOOST_IO   | ON      |             |
+| -DLOG            | ON      |             |
+| -DUSE_LOG4CPLUS  | ON      |             |
+| -DUSE_BOOSTLOG   | OFF     |             |
+| -DUSE_SPDLOG     | OFF     |             |
+| -DMATH           | ON      |             |
+| -DUSE_OPENCV_MAT | OFF     |             |
+| -DMEMORY         | ON      |             |
+| -DMETA           | ON      |             |
+| -DMISC           | ON      |             |
+| -DNET            | ON      |             |
+| -DOS             | ON      |             |
+| -DPLUGIN         | ON      |             |
+| -DSTRINGS        | ON      |             |
+| -DSYNC           | ON      |             |
+| -DTEST           | ON      |             |
+| -DTIME           | ON      |             |
+| -DTYPES          | ON      |             |
+| -DUTIL           | ON      |             |
 
 ---
 
 ## Examples
+
+```sh
+cmake .. -DBUILD_TEST=ON
+```
+
+| option       | default | description |
+| ------------ | ------- | ----------- |
+| -DBUILD_TEST | ON      |             |
 
 ---
 
@@ -78,3 +115,6 @@ make test
 - log4cplus: https://github.com/log4cplus/log4cplus
 - libharu: https://github.com/libharu/libharu
 - concurrentqueue: https://github.com/cameron314/concurrentqueue
+- mosquitto: https://github.com/eclipse/mosquitto
+- zlib: https://github.com/madler/zlib
+- spdlog: https://github.com/gabime/spdlog
